@@ -1,0 +1,54 @@
+@import "variables"; // чтобы переменные не подсвечивались
+
+// --- View -----------------------------------------------------------------------------
+.view {
+  .views-exposed-form .views-exposed-widget .form-submit {
+    margin-top: 1.5rem; margin-right: 0;
+  }
+
+  .view-content { @include row(); }
+  .vbo-views-form { @include col('xs', 12); }
+  .view-row,
+  .views-row {
+    margin-bottom: 2rem;
+    @include col('xs', 12);
+  }
+
+  &.view-catalog {
+    .view-row,
+    .views-row {
+      margin-bottom: 2rem;
+      @include col('md', 6);
+      @include col('lg', 4);
+    }
+  }
+}
+
+.node-teaser.node-item {
+  display: flex; flex-direction: column;
+  height: 100%;
+  .image {
+    height: 15rem;
+  }
+  .node-info {
+    border: 1px solid $gray-lightest;
+    border-top: none;
+    flex: auto;
+    display: flex; flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  .node-title {
+    flex: auto;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .node-price {
+    flex: 0 0 auto;
+    margin-bottom: 1rem;
+  }
+  .node-actions {
+    flex: 0 0 auto;
+    display: flex; justify-content: space-between;
+  }
+}

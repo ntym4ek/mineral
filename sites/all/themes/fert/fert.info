@@ -1,0 +1,8 @@
+name = Fertilizers
+description = Тема на базе Custom Base Theme
+core = 7.x
+base theme = cbtheme
+
+stylesheets[all][] = css/fert.css
+
+
