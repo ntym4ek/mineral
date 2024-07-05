@@ -1,0 +1,146 @@
+<?php
+
+/**
+ * Implements hook_menu_alter()
+ */
+function ext_node_menu_alter(&$items)
+{
+  // убрать материалы с Главной
+  $items['node']['page callback'] = 'ext_node_empty_front_page_callback';
+
+  // Кнопка "Удалить" в локальные задачи материала
+  // http://xandeadx.ru/blog/drupal/339
+  $items['node/%node/delete']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
+}
+
+/**
+ * menu callback
+ * убрать материалы с главной
+ */
+function ext_node_empty_front_page_callback()
+{
+  drupal_set_title('');
+  return [];
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function ext_node_preprocess_page(&$vars)
+{
+  if ($GLOBALS['theme'] == 'fert') {
+    if (arg(0) == 'node' && isset($vars['node'])) {
+      // Сформировать Баннер в шапке
+      $banner_filename = null;
+
+      //  - О нас
+//      if ($vars["node"]->nid == 11)                           {
+//        $vars['banner_title'] = t('Our mission —');
+//        $vars['banner_title_suffix'] = t('to ensure Russia\'s raw material independence in high-tech chemical ingredients');
+//      }
+
+      if ($banner_filename) {
+        $vars['is_banner_on'] = true;
+        $vars['banner_bkg'] = file_create_url('public://images/page-banners/' . $banner_filename . ($vars['is_mobile'] ? '--mobile' : '') . '.jpg');
+      }
+
+      // для страницы Препарата
+      if ($vars['node']->type == 'product') {
+        $vars['is_title_on'] = false;
+      }
+    }
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function ext_node_preprocess_node(&$vars)
+{
+  $node = $vars['node'];
+
+  // ссылки всегда скрыты
+  hide($vars["content"]["links"]);
+
+  // -- Общие для всех видов просмотра -----------------------------------------
+  // -- Изображения
+  // так как в некоторых типах нод изображения выводятся в слайдере,
+  // то соберём свой массив для вывода
+  $images = [];
+  if (!empty($vars['content']['field_images']['#items'])) {
+    foreach ($vars['content']['field_images']['#items'] as $key => $file) {
+      $images[] = $vars['content']['field_images'][$key];
+    }
+  }
+  elseif (!empty($vars['content']['field_image'])) {
+    $images[] = $vars['content']['field_image'][0];
+  }
+  $vars['images'] = $images;
+
+  if ($node->type == 'product') {
+    $product_info = sec_catalog_get_product_info($node->nid);
+    $vars['title'] = $product_info['title'];
+    $vars['label'] = $product_info['label'];
+  }
+
+  // -- Полный вид просмотра ---------------------------------------------------
+  if ($vars['view_mode'] == 'full') {
+    if ($node->type == 'product') {
+      $product_info = sec_catalog_get_product_info($node->nid);
+
+      // Компоненты
+      hide($vars["content"]["field_item_components"]);
+      $vars['components'] = $product_info['components'];
+
+      // подготовить характеристики
+      hide($vars["content"]["field_item_descriptions"]);
+      $vars['descriptions'] = $product_info['descriptions'];
+
+      // кнопки скачивания файлов
+//      if (!empty($node->field_prep_brief_file["und"][0]["uri"])) {
+//        $path   = $GLOBALS['user']->uid ? file_create_url($node->field_prep_brief_file["und"][0]["uri"]) : url('need-login');
+//        $query  = $GLOBALS['user']->uid ? [] : ['query' => ['destination' => $_SERVER['REQUEST_URI']]];
+//        $vars['brief_btn'] = l('<i class="icon icon-32"></i>' . t('Product description'), $path, $query + ['html' => true, 'attributes' => ['class' => ['btn btn-small btn-direction btn-full-wide btn-full-height btn-outline btn-with-icon-left']]]);
+//      }
+//      if (!empty($node->field_prep_booklet_file["und"][0]["uri"])) {
+//        $path   = $GLOBALS['user']->uid ? file_create_url($node->field_prep_booklet_file["und"][0]["uri"]) : url('need-login');
+//        $query  = $GLOBALS['user']->uid ? [] : ['query' => ['destination' => $_SERVER['REQUEST_URI']]];
+//        $vars['booklet_btn'] = l('<i class="icon icon-31"></i>' . t('Product booklet'), $path, $query + ['html' => true, 'attributes' => ['class' => ['btn btn-small btn-direction btn-full-wide btn-full-height btn-outline btn-with-icon-left']]]);
+//      }
+    }
+  }
+
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function ext_node_form_alter(&$form, &$form_state, $form_id)
+{
+  if ($GLOBALS['theme'] != 'seven' && isset($form["revision_information"]["#access"])) {
+    $form["revision_information"]["#access"] = false;
+    $form["options"]["#weight"] = $form["author"]["#weight"] - 1;
+  }
+}
+
+/**
+ * Implements hook_form_FORMID_alter().
+ */
+function ext_node_form_node_form_alter(&$form, &$form_state)
+{
+  if (in_array($form["type"]["#value"], ['article', 'product'])) {
+    // убрать неиспользуемые опции
+    $form["options"]["sticky"]["#access"] = false;
+
+    // изменить формат поля Body на "Редактор текста", если формат ранее не был установлен
+    $lang = $GLOBALS['language']->language;
+    if (isset($form["body"][$lang][0]["#type"]) && $form["body"][$lang][0]["#type"] == 'text_format' && !$form["body"][$lang][0]["#format"]) {
+      $form["body"][$lang][0]["#format"] = 'filtered_html';
+    }
+
+  }
+}
+
+
+

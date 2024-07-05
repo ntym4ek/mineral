@@ -84,10 +84,12 @@ $submenu-item-hover-color:$text-color!default;
 $submenu-item-hover-bkg:  $text-muted!default;
 
 
-
 // Формы
+//
 $form-bottom-margin:      1rem!default;
 $form-item-height:        2.3em!default; // em, чтобы масштабировать в зависимости от размера шрифта
 $input-border-width:      1px!default;
 $input-border-radius:     1px!default;
 
+// кнопки
+$button-border-radius:    1px!default;

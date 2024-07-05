@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * Вернуть массив с информацией о препарате
+ */
+function sec_catalog_get_product_info($node)
+{
+  $key = $node->nid ?? $node;
+  $product = &drupal_static(__FUNCTION__ . serialize($key));
+
+  if (empty($product)) {
+    $product = [];
+    $node_wr = entity_metadata_wrapper('node', $node);
+    $node_wr->language($GLOBALS['language']->language);
+    if ($node_wr->value()) {
+      $product['id'] = $node_wr->getIdentifier();
+      $product['title'] = trim($node_wr->label());
+
+      $product['url'] = url('node/' . $node_wr->getIdentifier());
+
+      // бренд
+      $product['brand'] = [
+        'id' => $node_wr->field_item_brand->getIdentifier(),
+        'label' => $node_wr->field_item_brand->label(),
+      ];
+
+      // категория
+      $product['category'] = [
+        'id' => $node_wr->field_item_category->getIdentifier(),
+        'label' => $node_wr->field_item_category->label(),
+      ];
+
+      // наименование для вывода
+      $label = trim($node_wr->label());
+      $product['label'] = $label;
+
+      // изображение
+      $image_uri = 'public://images/default/no_image.png';
+      if ($node_wr->field_image->value()) {
+        $image_uri = $node_wr->field_image->file->value()->uri;
+      }
+      $product['image'] = [
+        'uri' => $image_uri,
+        'teaser' => image_style_url('card_product', $image_uri),
+        'full' => file_create_url($image_uri),
+      ];
+
+      // компоненты
+      $product['components'] = [];
+      foreach ($node_wr->field_item_components->getIterator() as $component_wr) {
+        $product['components'][$component_wr->getIdentifier()] = [
+          'id' => $component_wr->field_component->getIdentifier(),
+          'label' => $component_wr->field_component->label(),
+//          'value' => $component_wr->field_component_value->value(),
+          'value' => helper_number_format($component_wr->field_component_value->value(), 3) . ' %',
+        ];
+      }
+
+      // характеристики
+      $product['descriptions'] = [];
+      foreach ($node_wr->field_item_descriptions as $description_wr) {
+        $product['descriptions'][] = [
+          'label' => $description_wr->field_description_title->value(),
+          'text' => $description_wr->field_description_text->value->value(),
+        ];
+      }
+    }
+  }
+
+  return $product;
+}

@@ -1,54 +1,61 @@
 @import "variables"; // чтобы переменные не подсвечивались
 
-// --- View -----------------------------------------------------------------------------
-.view {
-  .views-exposed-form .views-exposed-widget .form-submit {
-    margin-top: 1.5rem; margin-right: 0;
+.node-product {
+  &.node-teaser {
+    text-align: center;
+    .node-images { display: flex; justify-content: center; }
+    .image {
+      height: 250px;
+      img { width: initial; }
+    }
+    .node-title { color: $brand-color; font-weight: 500; text-transform: uppercase; }
   }
 
-  .view-content { @include row(); }
-  .vbo-views-form { @include col('xs', 12); }
-  .view-row,
-  .views-row {
-    margin-bottom: 2rem;
-    @include col('xs', 12);
-  }
+  &.node-full {
+    .node-title { color: $brand-color; }
+    .descriptions,
+    .components {
+      .label {
+        color: $brand-color; font-size: $font-size-large;
+        margin: 1rem 0;
+      }
+    }
+    .description {
+      margin-bottom: 1rem;
+      .text {
+        border-top: 1px solid $divider-clr;
+        margin-bottom: 1rem;
+      }
+    }
+    .components {
+      margin-bottom: 1rem;
+      .values {
+        border-top: 1px solid $divider-clr;
+        display: flex;
+        padding-top: 1rem;
+      }
+    }
+    .component {
+      background-color: $well-bkg-clr;
+      flex: 0 0 auto;
+      border-radius: 5px;
+      text-align: center;
+      padding: .5rem; margin: 0 1rem 1rem 0;
+      width: 90px; height: 70px;
+      .l1 { font-weight: 600; }
+    }
 
-  &.view-catalog {
-    .view-row,
-    .views-row {
-      margin-bottom: 2rem;
-      @include col('md', 6);
-      @include col('lg', 4);
+    @media #{$laptop} {
+      .node-actions { margin-top: 5rem; }
+      .descriptions,
+      .components {
+        .label { margin: 2rem 0; }
+      }
+      .description .text,
+      .components .values { margin-bottom: 2rem; }
+      .description .text, { padding-top: 1rem; }
+      .components .values { padding-top: 2rem; }
     }
   }
 }
 
-.node-teaser.node-item {
-  display: flex; flex-direction: column;
-  height: 100%;
-  .image {
-    height: 15rem;
-  }
-  .node-info {
-    border: 1px solid $gray-lightest;
-    border-top: none;
-    flex: auto;
-    display: flex; flex-direction: column;
-    text-align: center;
-    padding: 1.5rem;
-  }
-  .node-title {
-    flex: auto;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-  .node-price {
-    flex: 0 0 auto;
-    margin-bottom: 1rem;
-  }
-  .node-actions {
-    flex: 0 0 auto;
-    display: flex; justify-content: space-between;
-  }
-}

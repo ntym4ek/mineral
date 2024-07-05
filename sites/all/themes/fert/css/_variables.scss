@@ -6,7 +6,9 @@ $font-url:              'https://fonts.googleapis.com/css2?family=Montserrat:wgh
 
 // цвета
 //
-$brand-color:             #c9995b;
+$brand-color:             #4CC0E7;
+$divider-clr:             $gray-light;
+$well-bkg-clr:            #f1f1f1;
 
 // страница
 //
@@ -23,9 +25,14 @@ $header-text:             $text-color;
 //
 $menu-item-color:         $text-color;
 $menu-item-hover-color:   $brand-color;
-$menu-item-active-color:  $text-color;  // временно, тк все ссылки ведут на главную, в прод поставить $brand-color
+$menu-item-active-color:  $text-color;
 
 // подвал
 //
-$footer-bkg:              #fff;
+$footer-bkg:              #ededed;
 $footer-text:             $text-color;
+
+// формы
+//
+$input-border-radius:     5px;
+$button-border-radius:    5px;

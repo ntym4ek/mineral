@@ -10,13 +10,13 @@
 @mixin btn() {
   display: inline-flex; justify-content: center; align-items: center;
   background: transparent;
-  color: $text-color; text-decoration: none; text-align: center; line-height: normal;
+  color: $text-color; text-decoration: none; text-align: center;
   transition: all 200ms;
   cursor: pointer;
   margin-bottom: 0; // For input.btn
 
   border: $input-border-width solid transparent;
-  border-radius: $input-border-radius;
+  border-radius: $button-border-radius;
   min-height: $form-item-height;
   padding: .45em 1em;
   //&:not(.btn-static):hover, &:not(.btn-static):focus {

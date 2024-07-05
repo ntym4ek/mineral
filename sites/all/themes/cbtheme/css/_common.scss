@@ -468,6 +468,17 @@ fieldset {
   display: none;
   position: fixed; bottom: 5rem; right: 6%; z-index: 100;
   cursor: pointer;
+
+  background: #fff;
+  border-radius: 50px;
+  border: .5rem solid #{$brand-color + '85'};
+  .icon {
+    color: $brand-color; font-size: 3rem;
+  }
+
+  @media #{$pad} {
+    .icon { font-size: 2rem; }
+  }
 }
 
 // --- Иконочный шрифт ---------------------------------------------------------------------

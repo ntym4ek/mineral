@@ -1,0 +1,59 @@
+<?php
+
+
+/**
+ * Implements hook_form_alter()
+ */
+function ext_form_form_alter(&$form, &$form_state, $form_id)
+{
+  // отключить HTML5 валидацию на всех формах
+  $form['#attributes']['novalidate'] = '';
+
+  // на странице поиска заменить текст кнопки на иконку
+  if (strpos($form["#id"], 'views-exposed-form-catalog-page') === 0) {
+    $form["submit"]["#value"] = '<i class="icon icon-095"></i>';
+    $form["submit"]['#attributes'] = ['class' => ['btn', 'btn-brand', 'btn-direction']];
+    $form["submit"]['#theme_wrappers'] = ['button_icon'];
+  }
+}
+
+function ext_form_search_form($form, $form_state)
+{
+  $form['k'] = [
+    '#type' => 'textfield',
+    '#attributes' => ['placeholder' => t('search')],
+    '#prefix' => '<div class="form-item input-group">'
+  ];
+  $form['submit'] = [
+    '#type' => 'submit',
+    '#value' => '<i class="icon icon-095"></i>',
+    '#attributes' => ['class' => ['btn', 'btn-brand']],
+    '#theme_wrappers' => ['button_icon'],
+    '#suffix' => '</div>'
+  ];
+
+  return $form;
+}
+function ext_form_search_form_submit($form, $form_state)
+{
+  drupal_goto('search', ['query' => ['k' => $form_state['values']['k']]]);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ext_form_form_node_form_alter(&$form, &$form_state, $form_id)
+{
+  if ($form["#form_id"] == 'product_node_form') {
+
+    // уточнить текст кнопок в форме
+    if (!empty($form["field_item_descriptions"]["und"])) {
+      foreach($form["field_item_descriptions"]["und"] as &$value) {
+        if (isset($value["remove_button"]["#value"])) {
+          $value["remove_button"]["#value"] = 'Удалить описание';
+        }
+      }
+      $form["field_prep_specs"]["und"]["add_more"]["#value"] = 'Добавить описание';
+    }
+  }
+}

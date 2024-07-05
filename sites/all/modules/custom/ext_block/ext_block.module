@@ -1,0 +1,95 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function ext_block_block_info()
+{
+  return [
+    'custom-block-front-banner'  => [                     // по какой-то причине, если индекс содержит _ вместо - блок виден в базовой теме, но НЕ виден в подтеме.
+      'info' => t('CB | Front Banner'),
+    ],
+    'custom-block-contacts'     => [
+      'info' => t('CB | Contacts'),
+    ],
+    'custom-block-counters'     => [
+      'info' => 'CB | Счётчики',
+    ],
+    'custom-block-about'        => [
+      'info' => 'CB | О компании',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function ext_block_block_view($delta = '')
+{
+  $block = [];
+
+  // блоки с динамически формируемым содержимым
+  if ($delta == 'custom-block-front-banner') {
+    $block['content'] = theme($delta, ['slides' => ext_block_get_front_banner_slides()]);
+  }
+
+  // блоки со статичной разметкой
+  elseif (strpos($delta, 'custom-block-') === 0) {
+    $block['content'] = theme($delta);
+  }
+
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ext_block_theme()
+{
+  return [
+    'custom-block-front-banner'    => [
+      'variables' => [],
+      'template' => 'templates/block-front-banner',
+    ],
+    'custom-block-contacts'       => [
+      'variables' => [],
+      'template' => 'templates/block-contacts',
+    ],
+    'custom-block-counters'       => [
+      'variables' => [],
+      'template' => 'templates/block-counters',
+    ],
+    'custom-block-about'          => [
+      'variables' => [],
+      'template' => 'templates/block-about',
+    ],
+  ];
+}
+
+function ext_block_get_front_banner_slides()
+{
+  $banners = [];
+  if ($terms = taxonomy_get_tree(taxonomy_vocabulary_machine_name_load('slider_front_banners')->vid, 0, null, true)) {
+    foreach($terms as $term) {
+      $term_wr = entity_metadata_wrapper('taxonomy_term', $term);
+      $banners[] = [
+        'title' => $term_wr->label(),
+        'description' => $term_wr->description->value(),
+        'img' => file_create_url($term_wr->field_image->file->url->value()),
+        'path' => url($term_wr->field_text->value()),
+      ];
+    }
+  }
+
+  return $banners;
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function ext_block_preprocess_block(&$vars)
+{
+  if (empty($vars["content"])) {
+    $vars["classes_array"][] = 'block-empty';
+  }
+}

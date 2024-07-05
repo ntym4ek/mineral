@@ -4,5 +4,6 @@ core = 7.x
 base theme = cbtheme
 
 stylesheets[all][] = css/fert.css
+stylesheets[all][] = fonts/iconfont/styles.css
 
 
