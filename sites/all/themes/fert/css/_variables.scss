@@ -1,5 +1,7 @@
 @import "../../cbtheme/css/variables"; // продублировано из styles.scss, чтобы переменные не подсвечивались
 
+$content-well-max-width:  1320px;
+
 // шрифт
 //
 $font-url:              'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap';
@@ -16,7 +18,7 @@ $page-bkg:                #fff;
 
 // шапка
 //
-$header-height:           15rem;
+//$header-height:           15rem;
 $header-bkg:              #fff;
 $header-shadow:           none;
 $header-text:             $text-color;
@@ -26,6 +28,8 @@ $header-text:             $text-color;
 $menu-item-color:         $text-color;
 $menu-item-hover-color:   $brand-color;
 $menu-item-active-color:  $text-color;
+$menu-mobile-bkg:         $brand-color;
+$menu-mobile-divider-clr: white;
 
 // подвал
 //

@@ -28,12 +28,32 @@ function fert_preprocess_page(&$vars)
     }
 
   }
+
+  // -- Переключатель языка
+  $path = drupal_is_front_page() ? '<front>' : $_GET['q'];
+  if ($links = language_negotiation_get_switch_links('language', $path)) {
+    $lang = $GLOBALS["language"]->language == 'ru' ? 'en' : 'ru';
+    $vars['language_link'] = l('<i class="icon icon-02"></i>', $links->links[$lang]['href'], $links->links[$lang] + ['html' => TRUE]);
+    $vars['language_link_mobile'] = l($lang == 'en' ? 'English' : 'Русский', $links->links[$lang]['href'], $links->links[$lang]);
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fert_theme()
+{
+  return [
+    'share_btn' => [
+      'variables' => ['url' => null, 'title' => null, 'text' => null],
+      'template' => 'templates/share-btn',
+    ],
+  ];
 }
 
 /**
  * -- Переопределение функций темизации ----------------------------------------
  */
-
 function fert_current_search_link_active($vars)
 {
   // Sanitizes the link text if necessary.

@@ -7,7 +7,7 @@
     <div class="menu-mobile-wr">
       <div>
         <?php if ($primary_nav): print $primary_nav; endif; ?>
-        <div class="global">
+        <div class="global menu-mobile-link">
           <div><a href="https://kccc.group" target="_blank" title="KCCC GROUP">KCCC GROUP</a></div>
         </div>
       </div>
@@ -42,7 +42,7 @@
                   <div class="menu-wr">
                     <div class="global">
                       <a href="https://kccc.group" target="_blank" title="KCCC GROUP">
-                        <i class="icon icon-119"></i>
+                        <i class="icon icon-01"></i>
                       </a>
                     </div>
                     <div class="primary-menu">
@@ -202,14 +202,8 @@
                 <div class="menu about">
                   <div class="title"><?php print t('About us'); ?></div>
                   <ul>
-                    <li><a href="<?php print url('node/7'); ?>"><?php print t('Information', [], ['context' => 'menu']); ?></a></li>
-                    <li><a href="<?php print url('otzyvy'); ?>"><?php print t('Reviews'); ?></a></li>
-                    <?php if (isset($price_list_url)): ?>
-                      <li><a id="pricelist" href="<?php print $price_list_url; ?>" title="<?php print t('Download price-list'); ?>" download><?php print t('Price-list'); ?></a></li>
-                    <?php endif;?>
-                    <?php if (isset($catalog_url)): ?>
-                      <li><a id="catalog_pdf" href="<?php print $catalog_url; ?>" title="<?php print t('Download catalog'); ?>" download><?php print t('Catalog for'); ?> <?php print date('Y'); ?> <?php print t('year'); ?></a></li>
-                    <?php endif;?>
+                    <li><a href="https://kccc.ru/o-kompanii" target="_blank"><?php print t('Information', [], ['context' => 'menu']); ?></a></li>
+                    <li><a href="https://kccc.ru/otzyvy" target="_blank"><?php print t('Reviews'); ?></a></li>
                   </ul>
                 </div>
               </div>
@@ -217,16 +211,9 @@
                 <div class="menu contacts">
                   <div class="title"><?php print t('Contacts'); ?></div>
                   <ul>
-                    <li><a href="<?php print url('kontakty'); ?>"><?php print t('Main office'); ?></a></li>
-                    <li><a href="<?php print url('predstaviteli'); ?>"><?php print t('Regional representatives'); ?></a></li>
-                    <li><a href="<?php print url('filialy'); ?>"><?php print t('Find us'); ?></a></li>
-                    <li class="socials">
-                      <a href="https://vk.com/public147827276" rel="nofollow" target="_blank" title="<?php print t('VK'); ?>"><i class="icon icon-rounded icon-068 hover-raise"></i></a>
-                      <a href="https://ok.ru/group/54447113371728" rel="nofollow" target="_blank" title="<?php print t('OK'); ?>"><i class="icon icon-rounded icon-090 hover-raise"></i></a>
-                      <a href="https://youtube.com/@kccc_td" rel="nofollow" target="_blank" title="YouTube"><i class="icon icon-rounded icon-069 hover-raise"></i></a>
-                      <a href="https://dzen.ru/td_kccc" rel="nofollow" target="_blank" title="<?php print t('Yandex Dzen'); ?>"><i class="icon icon-rounded icon-070 hover-raise"></i></a>
-                      <a href="https://t.me/tdkccc" rel="nofollow" target="_blank" title="Telegram"><i class="icon icon-rounded icon-091 hover-raise"></i></a>
-                    </li>
+                    <li><a href="https://kccc.ru/predstaviteli" target="_blank"><?php print t('Regional representatives'); ?></a></li>
+                    <li><a href="<?php print url('node/6'); ?>"><?php print t('Contact us'); ?></a></li>
+                    <li><a href="https://kccc.ru/filialy" target="_blank"><?php print t('Find us'); ?></a></li>
                   </ul>
                 </div>
               </div>
@@ -234,17 +221,22 @@
           </div>
 
           <div class="col-xs-12 col-md-6 hide-md show-lg col-md-offset-3 col-lg-3 col-lg-offset-0">
-            <div class="subscribe">
-              <div class="title"><?php print t('Subscribe our mail list'); ?></div>
-              <p><?php print t('New products, discounts, offers!'); ?></p>
-              <?php print render($subscribe_form); ?>
+            <div class="menu">
+              <div class="title"><?php print t('Socials'); ?></div>
+              <div class="socials">
+                <a href="https://vk.com/public147827276" rel="nofollow" target="_blank" title="<?php print t('VK'); ?>"><i class="icon icon-08 hover-raise"></i></a>
+                <a href="https://ok.ru/group/54447113371728" rel="nofollow" target="_blank" title="<?php print t('OK'); ?>"><i class="icon icon-09 hover-raise"></i></a>
+                <a href="https://youtube.com/@kccc_td" rel="nofollow" target="_blank" title="YouTube"><i class="icon icon-13 hover-raise"></i></a>
+                <a href="https://dzen.ru/td_kccc" rel="nofollow" target="_blank" title="<?php print t('Yandex Dzen'); ?>"><i class="icon icon-12 hover-raise"></i></a>
+                <a href="https://t.me/tdkccc" rel="nofollow" target="_blank" title="Telegram"><i class="icon icon-10 hover-raise"></i></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="back-to-top"><i class="icon icon-124"></i></div>
+    <div id="back-to-top"><i class="icon icon-03"></i></div>
   </div>
 </div>
 

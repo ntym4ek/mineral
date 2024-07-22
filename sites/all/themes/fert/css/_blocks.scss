@@ -1,14 +1,21 @@
 @import "variables"; // чтобы переменные не подсвечивались
 
-.block.block-empty, .block:last-child {
-  margin-bottom: 0;
+.block {
+  margin-bottom: 1rem;
+  &.block-empty { margin-bottom: 0; }
+
+  .block-title { margin-top: 0; }
+
+  @media #{$laptop} {
+    margin-bottom: 2rem;
+  }
 }
 
 .page-highlighted .block-ext-block { margin-bottom: 0; }
 
 .block-front-banner {
   .swiper-slide {
-    height: 800px;
+    height: 600px;
     .image {
       position: absolute; top:0; bottom: 0;left:0; right: 0; z-index: 1;
       background-size: cover; background-position: center;
@@ -50,7 +57,7 @@
     }
     .more { margin-top: 4rem; }
     h2 {
-      font-size: $font-size-h1; font-weight: 700; text-shadow: 1px 1px 10px #666; text-transform: uppercase;
+      font-weight: 700; text-shadow: 1px 1px 10px #666; text-transform: uppercase;
       display: block;
       margin: 0 0 2rem 0;
     }
@@ -62,8 +69,10 @@
     .text { padding: 3rem; }
   }
   @media #{$tablet} {
+    .swiper-slide { height: 700px; }
     .text-wr { margin-top: 205px; }
     .text { width: 45%; }
+    h2 { font-size: $font-size-h1; }
   }
   @media #{$laptop} {
     .swiper-slide { height: 800px; }
@@ -78,7 +87,6 @@
     padding: 1rem 0;
   }
   .contact {
-    border-bottom: 1px solid $divider-clr;
     text-align: center;
     height: 100%;
     padding: 1rem;
@@ -159,5 +167,44 @@
     li { margin-right: .5rem; }
     .icon { font-size: .7em; }
     .btn { margin: 0; }
+  }
+}
+
+.block-products-series {
+  .carousel-series {
+    > .swiper-pagination {
+      --swiper-pagination-bullet-border-radius: 0;
+      --swiper-pagination-bullet-inactive-color: transparent;
+      --swiper-pagination-bullet-inactive-opacity: 1;
+      --swiper-pagination-color: transparent;
+      --swiper-pagination-bullet-height: 16px;
+
+      display: flex;
+      padding: 0 2rem; margin: 0;
+      list-style: none;
+      overflow-x: scroll; overflow-y: hidden;
+      &::-webkit-scrollbar { display:none; }
+      scrollbar-width: none; // mozilla ff
+
+      .swiper-pagination-bullet {
+        font-weight: 700; text-transform: uppercase; white-space: nowrap;
+        margin-right: 2rem;
+        width: auto;
+      }
+      .swiper-pagination-bullet-active {
+        color: $brand-color;
+      }
+    }
+  }
+  .carousel-products {
+    .swiper-button-prev,
+    .swiper-button-next { --swiper-navigation-sides-offset: 1rem; }
+  }
+
+  @media #{$tablet} {
+    .carousel-series {
+      > .swiper-pagination { justify-content: center; }
+      &.outer-pagination.top-pagination { margin-top: 5rem; }
+    }
   }
 }

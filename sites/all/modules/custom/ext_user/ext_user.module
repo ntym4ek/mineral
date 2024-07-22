@@ -98,7 +98,7 @@ function ext_user_form_user_login_alter(&$form, &$form_state)
   $form["pass"]["#title"] = t('Password');
   unset($form['pass']['#description']);
 
-  $form["actions"]["submit"]['#value'] = t('Submit');
+  $form["actions"]["submit"]['#value'] = t('Log in');
   $form["actions"]["submit"]['#attributes']['class'] = ['btn', 'btn-brand', 'btn-full-wide'];
 
   // обработчики
@@ -275,7 +275,7 @@ function ext_user_preprocess_menu_link(&$vars)
   if ($GLOBALS['theme'] != 'seven') {
     if ($vars["element"]["#href"] == 'user' && user_is_logged_in() && $vars["element"]["#original_link"]["depth"] == 1) {
       // сменить "Мой аккаунт" на иконку
-      $vars["element"]["#title"] = '<i class="icon icon-109"></i>';
+      $vars["element"]["#title"] = '<i class="icon icon-05"></i>';
       $vars["element"]['#localized_options']['html'] = TRUE;
     }
   }

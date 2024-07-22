@@ -31,22 +31,18 @@ function ext_node_preprocess_page(&$vars)
   if ($GLOBALS['theme'] == 'fert') {
     if (arg(0) == 'node' && isset($vars['node'])) {
       // Сформировать Баннер в шапке
-      $banner_filename = null;
-
-      //  - О нас
-//      if ($vars["node"]->nid == 11)                           {
-//        $vars['banner_title'] = t('Our mission —');
-//        $vars['banner_title_suffix'] = t('to ensure Russia\'s raw material independence in high-tech chemical ingredients');
-//      }
-
-      if ($banner_filename) {
-        $vars['is_banner_on'] = true;
-        $vars['banner_bkg'] = file_create_url('public://images/page-banners/' . $banner_filename . ($vars['is_mobile'] ? '--mobile' : '') . '.jpg');
-      }
+      $banner_uri = null;
 
       // для страницы Препарата
       if ($vars['node']->type == 'product') {
         $vars['is_title_on'] = false;
+        $vars['banner_title'] = t('Mineral nutrition');
+      }
+
+      if ($banner_uri) {
+        $vars['is_banner_on'] = true;
+        $vars['banner_url'] = file_create_url($banner_uri);
+        $vars['banner_mobile_url'] = image_style_url('banner_mobile', $banner_uri);
       }
     }
   }
@@ -82,6 +78,7 @@ function ext_node_preprocess_node(&$vars)
     $product_info = sec_catalog_get_product_info($node->nid);
     $vars['title'] = $product_info['title'];
     $vars['label'] = $product_info['label'];
+    $vars['brand'] = $product_info['brand']['label'];
   }
 
   // -- Полный вид просмотра ---------------------------------------------------
@@ -89,13 +86,20 @@ function ext_node_preprocess_node(&$vars)
     if ($node->type == 'product') {
       $product_info = sec_catalog_get_product_info($node->nid);
 
-      // Компоненты
       hide($vars["content"]["field_item_components"]);
-      $vars['components'] = $product_info['components'];
-
-      // подготовить характеристики
       hide($vars["content"]["field_item_descriptions"]);
-      $vars['descriptions'] = $product_info['descriptions'];
+      hide($vars["content"]["field_item_formulation"]);
+      $vars['product_info'] = $product_info;
+
+      // кнопка Поделиться
+      // -- Полная ссылка для социальных шар
+      $url = url('node/' . $node->nid, ['absolute' => true]);
+      $title = t('About @site product', ['@site' => variable_get('site_name')]);
+      $text = t('A link to the information at the website of @site.', ['@site' => variable_get('site_name')]);
+      $vars['share_btn'] = theme('share_btn', ['url' => $url, 'title' => $title, 'text' => $text]);
+
+      $message = t('Contact me about your product') . ' ' . $product_info['label'] . '.';
+      $vars['product_buy_btn'] = l(t('Buy'), 'node/6', ['attributes' => ['class' => ['btn', 'btn-brand', 'btn-wide']], 'query' => ['message' => $message]]);
 
       // кнопки скачивания файлов
 //      if (!empty($node->field_prep_brief_file["und"][0]["uri"])) {

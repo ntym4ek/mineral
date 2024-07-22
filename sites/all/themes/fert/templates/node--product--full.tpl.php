@@ -95,51 +95,76 @@
       </div>
 
       <div class="col-xs-12 col-md-8">
-        <div class="node-title">
-          <h1><?php print $label; ?></h1>
+        <div class="node-header">
+          <?php if ($brand): ?>
+          <h2><?php print $brand; ?></h2>
+          <?php endif; ?>
+          <div class="node-title">
+            <h1><?php print $label; ?></h1>
+            <?php if ($product_info['pdf']): ?>
+              <div class="pdf"><a href="<?php print $product_info['pdf']['url']; ?>" download title="<?php print t('Download booklet'); ?>"><i class="icon icon-18"></i></a></div>
+            <?php endif; ?>
+            <?php if (isset($share_btn)): ?>
+              <?php print $share_btn; ?>
+            <?php endif; ?>
+          </div>
         </div>
         <div class="node-text">
           <?php print render($content['body']); ?>
         </div>
 
         <div class="node-actions">
-          <div class="action"><a href="#" class="btn btn-brand btn-wide btn-uppercase"><?php print t('Buy'); ?></a></div>
+          <div class="action"><?php print $product_buy_btn; ?></div>
         </div>
       </div>
     </div>
   </div>
 
-  <?php if(!empty($descriptions)): ?>
-    <div class="node-row descriptions">
-      <?php foreach ($descriptions as $description): ?>
-      <div class="description">
-        <div class="row">
-          <div class="col-xs-12 col-md-4">
-            <div class="label"><?php print $description['label']; ?></div>
-          </div>
-          <div class="col-xs-12 col-md-8">
-            <div class="text"><?php print $description['text']; ?></div>
-          </div>
+  <?php if(!empty($product_info['descriptions'])): ?>
+    <?php foreach ($product_info['descriptions'] as $description): ?>
+    <div class="node-row description">
+      <div class="row">
+        <div class="col-xs-12 col-md-4">
+          <div class="label"><?php print $description['label']; ?></div>
+        </div>
+        <div class="col-xs-12 col-md-8">
+          <div class="content"><?php print $description['text']; ?></div>
         </div>
       </div>
-      <?php endforeach; ?>
     </div>
+    <?php endforeach; ?>
   <?php endif; ?>
 
-  <?php if (!empty($components)): ?>
+  <div class="node-row formulation">
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <div class="label"><?php print t('Formulation'); ?></div>
+      </div>
+      <div class="col-xs-12 col-md-8">
+        <div class="content">
+          <?php print $product_info['formulation']['label']; ?>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <?php if (!empty($product_info['components'])): ?>
   <div class="node-row components">
     <div class="row">
       <div class="col-xs-12 col-md-4">
         <div class="label"><?php print t('Components'); ?></div>
       </div>
       <div class="col-xs-12 col-md-8">
-        <div class="values">
-          <?php foreach ($components as $component): ?>
-          <div class="component">
-            <div class="l1"><?php print $component['label']; ?></div>
-            <div class="l2"><?php print $component['value']; ?></div>
+        <div class="content">
+          <div class="values">
+            <?php foreach ($product_info['components'] as $component): ?>
+            <div class="component">
+              <div class="l1"><?php print $component['label']; ?></div>
+              <div class="l2"><?php print $component['value']; ?></div>
+            </div>
+            <?php endforeach; ?>
           </div>
-          <?php endforeach; ?>
+        </div>
       </div>
     </div>
   </div>

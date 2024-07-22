@@ -2,4 +2,3 @@ name = Раздел Каталог
 description = Добавляет раздел "Каталог"
 package = Custom
 core = 7.x
-

@@ -1,5 +1,7 @@
 <?php
 
+const BRAND_OTHERS = 28;
+
 /**
  * Вернуть массив с информацией о препарате
  */
@@ -21,7 +23,7 @@ function sec_catalog_get_product_info($node)
       // бренд
       $product['brand'] = [
         'id' => $node_wr->field_item_brand->getIdentifier(),
-        'label' => $node_wr->field_item_brand->label(),
+        'label' => $node_wr->field_item_brand->getIdentifier() != BRAND_OTHERS ? $node_wr->field_item_brand->label() : '',
       ];
 
       // категория
@@ -45,6 +47,12 @@ function sec_catalog_get_product_info($node)
         'full' => file_create_url($image_uri),
       ];
 
+      // препаративная форма
+      $product['formulation'] = [
+        'id' => $node_wr->field_item_formulation->getIdentifier(),
+        'label' => $node_wr->field_item_formulation->label(),
+      ];
+
       // компоненты
       $product['components'] = [];
       foreach ($node_wr->field_item_components->getIterator() as $component_wr) {
@@ -64,8 +72,47 @@ function sec_catalog_get_product_info($node)
           'text' => $description_wr->field_description_text->value->value(),
         ];
       }
+
+      // листовка
+      $product['pdf'] = [];
+      if ($node_wr->field_item_pdf->value()) {
+        $product['pdf'] = [
+          'uri' => $node_wr->field_item_pdf->file->value()->uri,
+          'url' => file_create_url($node_wr->field_item_pdf->file->value()->uri),
+        ];
+      }
     }
   }
 
   return $product;
+}
+
+function sec_catalog_get_all_products()
+{
+  $products = [];
+
+  $dbr = db_select('node', 'n');
+  $dbr->condition('n.type', 'product');
+  $dbr->condition('n.status', '1');
+  $dbr->addField('n', 'nid');
+  $dbr->orderBy('n.title');
+  if ($nodes = $dbr->execute()->fetchCol()) {
+    $products = node_load_multiple($nodes);
+  }
+
+  return $products;
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function sec_catalog_preprocess_page(&$vars)
+{
+  if ($GLOBALS['theme'] == 'fert') {
+    if (arg(0) == 'catalog') {
+      // для страницы Препарата
+      $vars['banner_title'] = t('Mineral nutrition');
+    }
+  }
+
 }

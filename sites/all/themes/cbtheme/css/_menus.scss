@@ -86,7 +86,7 @@ ul.menu {                             // обнулить system.menu.css сти
         display: block;
         padding: 1rem;
       }
-      &:not(:last-child) a { border-bottom: 1px solid #bbb; }
+      &:not(:last-child) a { border-bottom: 1px solid $menu-mobile-divider-clr; }
     }
     li.leaf {
       > a {

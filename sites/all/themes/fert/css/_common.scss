@@ -14,13 +14,12 @@ a {
 
 // иконочный шрифт
 i.icon {
-  font-size: 1.8rem;
+  font-size: 1.4em;
   &.icon-rounded {
     border: 3px solid $text-color; border-radius: 2em;
     width: 1.7em; height: 1.7em;
     display: inline-flex; justify-content: center; align-items: center;
   }
-  &:before { display: block; }
 }
 
 .page-header {
@@ -228,15 +227,16 @@ i.icon {
       display: inline-block;
       padding: .3rem 0;
     }
-    li.socials {
-      a {
-        margin-right: .4rem;
-        margin-top: 0.5rem;
-      }
-      i.icon {
-        font-size: $font-size-h3;
-        &.icon-rounded { border-width: 2px; }
-      }
+  }
+  .socials {
+    a {
+      display: inline-block;
+      margin-right: .4rem;
+      margin-top: .2rem;
+    }
+    i.icon {
+      background: white; border-radius: 25px;
+      color: $brand-color; font-size: 3rem;
     }
   }
   .subscribe {
@@ -256,7 +256,18 @@ i.icon {
   }
   @media #{$laptop} {
     .branding { font-size: .7em; }
+    .socials i.icon {
+      font-size: 2rem;
+    }
   }
+}
+
+.nav-mobile {
+  .global > div { border-top: 1px solid $menu-mobile-divider-clr; }
+}
+
+.breadcrumb {
+  .last { color: $brand-color; }
 }
 
 // --- Элементы оформления -------------------------------------------------------------
@@ -321,6 +332,28 @@ i.icon {
       flex: 1 1 auto;
       max-width: initial;
     }
-    .views-submit-button button i { margin: -10px; } // иконка занимает много места
+    .views-submit-button button i { margin: -5px; } // иконка занимает много места
   }
+}
+
+.share {
+  display: flex; align-items: center;
+  cursor: pointer;
+  a { color: inherit; }
+  i.icon {
+    margin-right: .5rem;
+  }
+  .share-arrow i.icon {
+    color: $text-light; font-size: .5em;
+  }
+  .share-links {
+    display: flex; align-items: center;
+    overflow: hidden;
+    height: 100%;
+    a {
+      margin-left: -100px;
+      transition: margin 200ms;
+    }
+  }
+  &.open a { margin-left: 0; }
 }

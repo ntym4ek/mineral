@@ -65,6 +65,7 @@
 
           var options = {
             speed: 400,
+            centerInsufficientSlides: true,
             touchMoveStopPropagation: true,
             breakpoints: {
               320: {
@@ -84,6 +85,11 @@
           var autoHeight = $(this).data("autoheight");
           if (autoHeight) {
             options.autoHeight = true;
+          }
+
+          var nested = $(this).data("nested");
+          if (nested) {
+            options.nested = true;
           }
 
           var autoplay = $(this).data("autoplay");
@@ -154,11 +160,17 @@
             };
           }
 
+          let bulletCustomText = $(this).data("pagination-custom-text");
+          if (bulletCustomText) {
+            options.pagination.renderBullet = function (index, className) {
+              let name = $(this.slides[index]).data("bullet-label");
+              return "<span class=\"" + className + "\">" + name + "</span>";
+            };
+          }
+
           new Swiper(swiper[0], options);
         }
       });
-
-
 
     }
   };
