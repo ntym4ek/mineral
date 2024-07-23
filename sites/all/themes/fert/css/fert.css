@@ -1823,8 +1823,6 @@ ul.menu {
     margin: 0;
     padding: 0;
     list-style: none; }
-  ul.menu li.expanded > a {
-    cursor: default; }
 
 .menu-wr {
   display: flex;
@@ -2557,7 +2555,7 @@ i.icon {
     font-size: 2.5rem; } }
 @media only screen and (min-width: 1366px) {
   .block-front-banner .swiper-slide {
-    height: 800px; }
+    height: 750px; }
   .block-front-banner .text-wr {
     margin-top: 220px; } }
 
