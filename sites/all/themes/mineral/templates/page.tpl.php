@@ -32,7 +32,7 @@
                   <div class="ru"><a href="<?php print url('<front>'); ?>">Кирово-Чепецкая Химическая&nbsp;Компания</a></div>
                   <div class="en"><a href="<?php print url('<front>'); ?>">Kirovo-Chepetsk Chemical Company</a></div>
                 </div>
-                <div class="logo"><a href="<?php print url('<front>'); ?>"><img src="/sites/all/themes/fert/images/logo/logo_kccc_white.png" alt="<?php print t('TH «Kirovo-Chepetsk Chemical Company» LLC'); ?>" /></a></div>
+                <div class="logo"><a href="<?php print url('<front>'); ?>"><img src="/sites/all/themes/mineral/images/logo/logo_kccc_white.png" alt="<?php print t('TH «Kirovo-Chepetsk Chemical Company» LLC'); ?>" /></a></div>
               </div>
             </div>
             <div class="col col-2 full-height col-no-gutter">

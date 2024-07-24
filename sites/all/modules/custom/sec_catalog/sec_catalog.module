@@ -108,7 +108,7 @@ function sec_catalog_get_all_products()
  */
 function sec_catalog_preprocess_page(&$vars)
 {
-  if ($GLOBALS['theme'] == 'fert') {
+  if ($GLOBALS['theme'] == 'mineral') {
     if (arg(0) == 'catalog') {
       // для страницы Препарата
       $vars['banner_title'] = t('Mineral nutrition');

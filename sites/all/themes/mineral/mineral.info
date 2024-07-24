@@ -1,9 +1,9 @@
-name = Fertilizers
+name = Mineral
 description = Тема на базе Custom Base Theme
 core = 7.x
 base theme = cbtheme
 
-stylesheets[all][] = css/fert.css
+stylesheets[all][] = css/mineral.css
 stylesheets[all][] = fonts/iconfont/styles.css
 
 

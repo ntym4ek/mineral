@@ -28,7 +28,7 @@ function ext_node_empty_front_page_callback()
  */
 function ext_node_preprocess_page(&$vars)
 {
-  if ($GLOBALS['theme'] == 'fert') {
+  if ($GLOBALS['theme'] == 'mineral') {
     if (arg(0) == 'node' && isset($vars['node'])) {
       // Сформировать Баннер в шапке
       $banner_uri = null;

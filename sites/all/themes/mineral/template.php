@@ -1,6 +1,6 @@
 <?php
 
-function fert_preprocess_page(&$vars)
+function mineral_preprocess_page(&$vars)
 {
   // -- Главная
   if (drupal_is_front_page()) {
@@ -41,7 +41,7 @@ function fert_preprocess_page(&$vars)
 /**
  * Implements hook_theme().
  */
-function fert_theme()
+function mineral_theme()
 {
   return [
     'share_btn' => [
@@ -54,7 +54,7 @@ function fert_theme()
 /**
  * -- Переопределение функций темизации ----------------------------------------
  */
-function fert_current_search_link_active($vars)
+function mineral_current_search_link_active($vars)
 {
   // Sanitizes the link text if necessary.
   $sanitize = empty($vars['options']['html']);
@@ -73,12 +73,12 @@ function fert_current_search_link_active($vars)
   return l($vars['text'], $vars['path'], $vars['options']);
 }
 
-function fert_current_search_deactivate_widget($vars)
+function mineral_current_search_deactivate_widget($vars)
 {
   return 'x&nbsp;&nbsp;';
 }
 
-function fert_facetapi_title($vars)
+function mineral_facetapi_title($vars)
 {
   // Сделать заголовки блоков фасетных фильтров мультиязычными
   if ($vars["facet"]["#settings"]->facet == 'field_item_category') {
