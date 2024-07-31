@@ -90,13 +90,13 @@
           <div class="image">
             <?php print drupal_render($images[0]); ?>
           </div>
-          <?php endif; ?>
         </div>
+        <?php endif; ?>
       </div>
 
       <div class="col-xs-12 col-md-8">
         <div class="node-header">
-          <?php if ($brand): ?>
+          <?php if ($brand != $label): ?>
           <h2><?php print $brand; ?></h2>
           <?php endif; ?>
           <div class="node-title">

@@ -2629,6 +2629,8 @@ i.icon {
   background-color: #fff;
   height: 100%;
   padding: 2rem; }
+.block-about .image {
+  height: 100%; }
 .block-about .l1 {
   color: #4CC0E7;
   font-size: 1.222rem; }

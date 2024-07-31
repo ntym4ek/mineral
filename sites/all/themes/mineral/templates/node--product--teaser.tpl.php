@@ -87,7 +87,7 @@
     </div>
   </div>
   <div class="product-info">
-    <?php if ($brand): ?>
+    <?php if ($brand != $label): ?>
     <div class="brand"><?php print $brand; ?></div>
     <?php endif; ?>
     <div class="node-title"><a href="<?php print $node_url; ?>"><?php print $label; ?></a></div>

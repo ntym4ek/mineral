@@ -7,7 +7,7 @@
       <div class="content">
         <div class="row">
           <div class="col-xs-12 col-md-6 col-lg-4 col-no-gutter">
-            <div class="image"><img src="/sites/all/modules/custom/ext_block/images/about.jpg"></div>
+            <div class="image"><img src="/sites/all/modules/custom/ext_block/images/about.jpg" /></div>
           </div>
           <div class="col-xs-12 col-md-6 col-lg-8 col-no-gutter">
             <div class="intro">
