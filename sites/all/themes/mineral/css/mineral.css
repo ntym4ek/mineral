@@ -2370,6 +2370,23 @@ i.icon {
 .breadcrumb .last {
   color: #4CC0E7; }
 
+.webform-client-form {
+  position: relative; }
+  .webform-client-form .complete {
+    background: #fff;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1; }
+  .webform-client-form fieldset {
+    border: none;
+    padding: 0; }
+    .webform-client-form fieldset legend {
+      font-weight: 700;
+      margin-bottom: 1rem; }
+
 .underline {
   background: #4CC0E7;
   width: 8em;

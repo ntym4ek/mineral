@@ -270,6 +270,23 @@ i.icon {
   .last { color: $brand-color; }
 }
 
+.webform-client-form {
+  // перекрытие сообщением об отправке остальных элементов формы
+  position: relative;
+  .complete {
+    background: #fff;
+    position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 1
+  }
+  fieldset {
+    border: none;
+    padding: 0;
+    legend {
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
 // --- Элементы оформления -------------------------------------------------------------
 .underline {
   background: $brand-color;
