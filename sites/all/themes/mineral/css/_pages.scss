@@ -61,6 +61,31 @@
       > div { flex: 100%; }
       .l1 { font-weight: 600; }
     }
+    .reglaments {
+      .content {
+        border-top: none;
+        padding-top: 1rem;
+      }
+      table {
+        width: 100%;
+        th {
+          font-weight: 400; text-align: center;
+          background-color: $gray-lightest;
+          border-top-color: $gray; border-left-color: $gray; border-bottom-width: 1px;
+          padding: .5rem;
+          &:last-child { border-right-color: $gray;  }
+        }
+        td {
+          background-color: white;
+          &:first-child {
+            background-color: $brand-color;
+            color: white;
+          }
+        }
+      }
+
+    }
+
 
     @media #{$tablet} {
       h1 { flex: 0 0 auto; }

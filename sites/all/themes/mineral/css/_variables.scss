@@ -9,6 +9,13 @@ $font-url:              'https://fonts.googleapis.com/css2?family=Montserrat:wgh
 // цвета
 //
 $brand-color:             #4CC0E7;
+$brand-blue:              #4CC0E7;
+$brand-primary:           $brand-blue;
+
+$btn-primary-color:              #fff;
+$btn-primary-bg:                 $brand-primary;
+$btn-primary-border:             darken($btn-primary-bg, 5%);
+
 $divider-clr:             $gray-light;
 $well-bkg-clr:            #f1f1f1;
 
@@ -40,3 +47,4 @@ $footer-text:             $text-color;
 //
 $input-border-radius:     5px;
 $button-border-radius:    5px;
+

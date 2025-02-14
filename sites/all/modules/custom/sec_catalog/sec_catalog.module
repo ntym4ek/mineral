@@ -64,6 +64,17 @@ function sec_catalog_get_product_info($node)
         ];
       }
 
+      // регламенты
+      $product['reglaments'] = [];
+      foreach ($node_wr->field_item_reglaments->getIterator() as $reglament_wr) {
+        $product['reglaments'][$reglament_wr->getIdentifier()] = [
+          'culture' => $reglament_wr->field_ir_culture->value(),
+          'prep_spend' => $reglament_wr->field_ir_prep_spend->value(),
+          'application' => $reglament_wr->field_ir_application->value(),
+          'mix_spend' => $reglament_wr->field_ir_mix_spend->value(),
+        ];
+      }
+
       // характеристики
       $product['descriptions'] = [];
       foreach ($node_wr->field_item_descriptions as $description_wr) {

@@ -101,8 +101,49 @@ function ext_node_preprocess_node(&$vars)
       $brand = empty($product_info['brand']['label']) ? '' : $product_info['brand']['label'] . ' ';
       $message = t('Contact me about your product') . ' «' . $brand . $product_info['label'] . '».';
       $vars['product_buy_btn'] = l(t('Buy'), 'node/6',
-        ['attributes' => ['class' => ['btn', 'btn-brand', 'btn-wide']], 'query' => ['message' => $message]]
+        ['attributes' => ['class' => ['btn', 'btn-brand', 'btn-lg', 'btn-wide']], 'query' => ['message' => $message]]
       );
+
+      // подготовить таблицу с регламентами
+      if ($product_info['reglaments']) {
+
+        $header = [
+          'Культура',
+          'Доза препарата, <span class="nowrap">л/га</span>',
+          'Способ и время применения',
+          'Расход рабочей жидкости, <span class="nowrap">л/га</span>',
+        ];
+
+        $rows = $spans = [];
+        $ps_value = $ms_value = 0;
+        $ps_count = $ms_count = 0;
+        $ps_id = $ms_id = 0;
+        foreach($product_info['reglaments'] as $id => $reglament) {
+          if ($ps_value != $reglament['prep_spend']) {
+            $ps_value = $reglament['prep_spend'];
+            $ps_id = $id; $ps_count = 0;
+          } else $ps_count++;
+          if ($ms_value != $reglament['mix_spend']) {
+            $ms_value = $reglament['mix_spend'];
+            $ms_id = $id; $ms_count = 0;
+          } else $ms_count++;
+          if ($ps_count) $spans[$ps_id]['ps'] = $ps_count;
+          if ($ms_count) $spans[$ms_id]['ms'] = $ms_count;
+          $ps = $ps_count ? '' : ['data' => $reglament['prep_spend'], 'align' => 'center'];
+          $ms = $ms_count ? '' : ['data' => $reglament['mix_spend'], 'align' => 'center'];
+
+          $rows[$id][] = $reglament['culture'];
+          if ($ps) $rows[$id][] = $ps;
+          $rows[$id][] = $reglament['application'];
+          if ($ms) $rows[$id][] = $ms;
+        }
+        foreach ($spans as $id => $value) {
+          if (isset($value['ps'])) $rows[$id][1]['rowspan'] = $value['ps']+1;
+          if (isset($value['ms'])) $rows[$id][3]['rowspan'] = $value['ms']+1;
+        }
+
+        $vars['reglaments_table'] = theme('table', array('header' => $header, 'rows' => $rows));
+      }
     }
   }
 
@@ -127,6 +168,7 @@ function ext_node_form_node_form_alter(&$form, &$form_state)
   if (in_array($form["type"]["#value"], ['article', 'product'])) {
     // убрать неиспользуемые опции
     $form["options"]["sticky"]["#access"] = false;
+    $form["author"]["#access"] = false;
 
     // изменить формат поля Body на "Редактор текста", если формат ранее не был установлен
     $lang = $GLOBALS['language']->language;
@@ -134,6 +176,7 @@ function ext_node_form_node_form_alter(&$form, &$form_state)
       $form["body"][$lang][0]["#format"] = 'filtered_html';
     }
 
+    $form["actions"]["submit"]["#attributes"]['class'] = ['btn-primary'];
   }
 }
 

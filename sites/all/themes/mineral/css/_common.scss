@@ -115,7 +115,7 @@ i.icon {
     .menu.level-1 > li {
       > a {
         color: #fff; font-weight: 500;
-        padding: .8rem 1rem .8rem 0;
+        padding: .8rem 1.5rem .8rem 0;
       }
     }
     .sub-menu {
@@ -136,6 +136,7 @@ i.icon {
     }
     .global { padding: 0 2rem; }
     .menu.level-1 > li { margin: 0 .5rem; }
+    .sub-menu { min-width: 290px; }
   }
 }
 
@@ -328,6 +329,21 @@ i.icon {
   }
 }
 
+ul.action-links {
+  display: flex;
+  padding: 0;
+  li {
+    list-style: none;
+    padding: 0;
+    a {
+      @include btn();
+      @include button-size($padding-base-vertical, $padding-base-horizontal, $input-font-size-base, $line-height-base, $btn-border-radius-base, $input-height-base);
+      @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+    }
+  }
+}
+
+
 // --- View -----------------------------------------------------------------------------
 .view {
   .view-content { @include row(); }
@@ -373,4 +389,32 @@ i.icon {
     }
   }
   &.open a { margin-left: 0; }
+}
+
+// --- Таблицы --------------------------------------------------------------------------
+table {
+  font-size: .8rem;
+}
+.view-admin-views-node {
+  .views-table {
+    margin: 0 1rem;
+    width: 100%;
+  }
+  .views-field-title { width: 50%; }
+}
+
+// --- Админка --------------------------------------------------------------------------
+.node-product-form {
+  padding-bottom: 4rem;
+  table { width: 100%; }
+  [id*="field-item-reglaments-values"],
+  [id*="field-item-components-values"] {
+    tbody>tr>td:nth-child(2),
+    tbody>tr>td:nth-child(2) .ajax-new-content {
+      display: flex; align-items: flex-start;
+      > div { margin-right: 1rem; }
+      > input { margin-top: 23px; }
+    }
+  }
+  .tabledrag-toggle-weight-wrapper { display: none; }
 }

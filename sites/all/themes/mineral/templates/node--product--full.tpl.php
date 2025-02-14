@@ -170,4 +170,19 @@
   </div>
   <?php endif; ?>
 
+  <?php if (!empty($reglaments_table)): ?>
+  <div class="node-row reglaments">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="label"><?php print t('Reglaments'); ?></div>
+      </div>
+      <div class="col-xs-12">
+        <div class="content">
+          <?php print $reglaments_table; ?>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php endif; ?>
+
 </div>
