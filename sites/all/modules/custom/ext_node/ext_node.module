@@ -132,14 +132,14 @@ function ext_node_preprocess_node(&$vars)
           $ps = $ps_count ? '' : ['data' => $reglament['prep_spend'], 'align' => 'center'];
           $ms = $ms_count ? '' : ['data' => $reglament['mix_spend'], 'align' => 'center'];
 
-          $rows[$id][] = $reglament['culture'];
-          if ($ps) $rows[$id][] = $ps;
-          $rows[$id][] = $reglament['application'];
-          if ($ms) $rows[$id][] = $ms;
+          $rows[$id]['0'] = $reglament['culture'];
+          if ($ps) $rows[$id]['1'] = $ps;
+          $rows[$id]['2'] = $reglament['application'];
+          if ($ms) $rows[$id]['3'] = $ms;
         }
         foreach ($spans as $id => $value) {
-          if (isset($value['ps'])) $rows[$id][1]['rowspan'] = $value['ps']+1;
-          if (isset($value['ms'])) $rows[$id][3]['rowspan'] = $value['ms']+1;
+          if (isset($value['ps'])) $rows[$id]['1']['rowspan'] = $value['ps']+1;
+          if (isset($value['ms'])) $rows[$id]['3']['rowspan'] = $value['ms']+1;
         }
 
         $vars['reglaments_table'] = theme('table', array('header' => $header, 'rows' => $rows));

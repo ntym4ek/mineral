@@ -74,7 +74,7 @@ function mineral_current_search_link_active($vars)
   $vars['text'] = t('!current_search_deactivate_widget', $replacements) . $link_text;
   $vars['options']['html'] = TRUE;
   $vars['options']['attributes']['class'][] = 'active';
-  $vars['options']['attributes']['class'][] = 'btn btn-badge btn-brand btn-with-icon-left btn-uppercase';
+  $vars['options']['attributes']['class'][] = 'btn btn-xs btn-brand btn-with-icon-left btn-uppercase';
   $vars['options']['attributes']['title'] = t('Remove this filter');
   return l($vars['text'], $vars['path'], $vars['options']);
 }
